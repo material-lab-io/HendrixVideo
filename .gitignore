@@ -1,0 +1,399 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Project specific - Hendrix Video Analysis Pipeline
+# ====================================================
+
+# Virtual environments (specific to this project)
+hendrix_venv/
+hendrix_env/
+venv/
+env/
+
+# Model cache directories (VERY LARGE - downloaded separately)
+cache/
+cache_dir/
+model_cache/
+models/
+*/cache/
+*/cache_dir/
+*/model_cache/
+components/video_analysis/cache/
+components/character_dialogue/cache/
+components/captioning/cache/
+
+# Model files
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.onnx
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.ckpt
+*.pth.tar
+
+# Output directories
+output/
+outputs/
+*/output/
+*/outputs/
+verbose_output/
+hendrix_output/
+pipeline_output/
+results/
+predictions/
+
+# Keyframes and extracted images
+keyframes/
+*/keyframes/
+frames/
+extracted_frames/
+shot_*.jpg
+shot_*.png
+frame_*.jpg
+frame_*.png
+
+# Video files (should be provided by user)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.flv
+*.wmv
+*.m4v
+*.mpg
+*.mpeg
+downloaded_video.*
+test_video.mp4
+test_video_*.mp4
+
+# Audio files
+*.wav
+*.mp3
+*.aac
+*.flac
+*.ogg
+
+# Large data files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+logs/
+*/logs/
+pipeline_verbose_log.txt
+gpu_pipeline_log.txt
+temp/
+*/temp/
+tmp/
+
+# Test outputs and reports
+test_output/
+test_results/
+benchmarks/
+perf_logs/
+test_hendrix_pipeline*.sh
+
+# Documentation build artifacts
+docs/_build/
+docs/site/
+_build/
+site/
+
+# Sensitive configuration
+config.local.yaml
+secrets.yaml
+.env.local
+*.local
+credentials.json
+auth.json
+
+# Hugging Face cache
+.huggingface/
+transformers_cache/
+huggingface_cache/
+~/.cache/huggingface/
+
+# PyTorch specific
+checkpoint/
+runs/
+*.ckpt
+
+# TensorBoard
+tensorboard/
+events.out.tfevents.*
+
+# Wandb
+wandb/
+
+# MLflow
+mlruns/
+mlflow/
+
+# DVC
+.dvc/
+.dvcignore
+
+# Hydra
+multirun/
+
+# Ray
+ray_results/
+
+# Backup files
+*.bak
+*.backup
+*_backup/
+backup/
+
+# Archive directory (old code)
+# Comment out if you want to include archive in repo
+# archive/
+
+# Installation and setup artifacts
+installed.txt
+*.lock
+!poetry.lock
+!Pipfile.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Custom scripts that might contain credentials
+*_local.sh
+local_*.sh
+
+# Notebooks (uncomment if you want to exclude)
+# notebooks/
+# *.ipynb
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# profiling
+*.lprof
+*.prof
+
+# Other media files
+videos/
+samples/
+test_videos/
+sample_outputs/
+
+# Debug outputs
+debug_output/
+transnet_output/
+
+# Package manager files
+yarn.lock
+package-lock.json
+node_modules/
+
+# Downloaded test videos
+test_video*.mp4
+sample_video*.mp4
+demo_video*.mp4
+
+# Specific large directories from analysis
+components/video_analysis/keyframes/
+components/*/keyframes/
+components/*/output/
+components/*/outputs/
+
+# Ignore fix scripts
+fix_*.sh
+quick_test.sh
+test_*.sh
+!test_pipeline.sh
+
+# Ignore local run scripts
+run_local*.sh
+local_run*.sh
+
+# Model download scripts output
+download_models_output.log
+model_download_status.json

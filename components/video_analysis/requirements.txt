@@ -1,0 +1,37 @@
+# Core dependencies
+opencv-python>=4.8.0
+numpy>=1.26.0  # Updated for Python 3.12 compatibility
+pillow>=10.0.0
+
+# Deep learning frameworks
+torch>=2.0.0
+torchvision>=0.15.0
+transformers>=4.30.0
+
+# Video processing
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+
+# AutoShot dependencies
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# LLaVA dependencies
+accelerate>=0.20.0
+sentencepiece>=0.1.99
+protobuf>=4.23.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.65.0
+pandas>=2.0.0
+python-dotenv>=1.0.0
+
+# Shot detection
+transnetv2-pytorch>=1.0.1
+
+# Development and testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0

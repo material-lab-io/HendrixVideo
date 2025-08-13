@@ -1,0 +1,27 @@
+# Complete Requirements for Hendrix Pipeline
+# Installs all components and dependencies
+
+# Include all component requirements
+-r video.txt
+-r audio.txt
+-r visual.txt
+-r captioning.txt
+
+# Additional dependencies for full pipeline
+fastapi>=0.104.0  # For API server
+uvicorn>=0.24.0  # ASGI server
+streamlit>=1.28.0  # Optional UI
+gradio>=4.0.0  # Alternative UI
+
+# Database (optional)
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+
+# Cloud Storage (optional)
+boto3>=1.28.0  # AWS S3
+google-cloud-storage>=2.10.0  # GCS
+azure-storage-blob>=12.19.0  # Azure
+
+# Monitoring (optional)
+prometheus-client>=0.18.0
+wandb>=0.15.0  # Weights & Biases tracking

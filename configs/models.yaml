@@ -1,0 +1,258 @@
+# Model Configuration Registry
+# This file contains all available models that can be used in the pipeline
+# To add a new model, add its configuration here and reference it in base_config.yaml
+
+# Vision-Language Models (VLMs)
+vision_language_models:
+  # LLaVA Family
+  llava:
+    llava_7b_v1_6:
+      name: "LLaVA-v1.6 Vicuna 7B"
+      model_id: "llava-hf/llava-v1.6-vicuna-7b-hf"
+      size_gb: 14
+      recommended_vram_gb: 16
+      features:
+        - image_understanding
+        - text_generation
+        - instruction_following
+      
+    llava_13b_v1_6:
+      name: "LLaVA-v1.6 Vicuna 13B"
+      model_id: "llava-hf/llava-v1.6-vicuna-13b-hf"
+      size_gb: 26
+      recommended_vram_gb: 24
+      features:
+        - enhanced_reasoning
+        - better_context
+        
+    llava_next_mistral_7b:
+      name: "LLaVA-NeXT Mistral 7B"
+      model_id: "llava-hf/llava-v1.6-mistral-7b-hf"
+      size_gb: 14
+      recommended_vram_gb: 16
+      features:
+        - improved_efficiency
+        - better_instruction_following
+        
+    bakllava_mistral_7b:
+      name: "BakLLaVA Mistral 7B"
+      model_id: "llava-hf/bakLlava-v1-hf"
+      size_gb: 14
+      recommended_vram_gb: 16
+      features:
+        - optimized_for_video
+        
+  # Other VLMs
+  blip2:
+    blip2_flan_t5_xl:
+      name: "BLIP-2 Flan-T5 XL"
+      model_id: "Salesforce/blip2-flan-t5-xl"
+      size_gb: 16
+      recommended_vram_gb: 20
+      
+  instructblip:
+    instructblip_vicuna_7b:
+      name: "InstructBLIP Vicuna 7B"
+      model_id: "Salesforce/instructblip-vicuna-7b"
+      size_gb: 14
+      recommended_vram_gb: 16
+
+# Audio Models
+audio_models:
+  # Whisper variants
+  whisper:
+    tiny:
+      name: "Whisper Tiny"
+      model_id: "openai/whisper-tiny"
+      size_mb: 39
+      speed: "fastest"
+      accuracy: "lowest"
+      
+    base:
+      name: "Whisper Base"
+      model_id: "openai/whisper-base"
+      size_mb: 74
+      speed: "fast"
+      accuracy: "good"
+      
+    small:
+      name: "Whisper Small"
+      model_id: "openai/whisper-small"
+      size_mb: 244
+      speed: "medium"
+      accuracy: "better"
+      
+    medium:
+      name: "Whisper Medium"
+      model_id: "openai/whisper-medium"
+      size_mb: 769
+      speed: "slow"
+      accuracy: "high"
+      
+    large:
+      name: "Whisper Large"
+      model_id: "openai/whisper-large-v3"
+      size_gb: 1.5
+      speed: "slowest"
+      accuracy: "best"
+      
+  # Speaker diarization
+  diarization:
+    pyannote_3_1:
+      name: "Pyannote Speaker Diarization 3.1"
+      model_id: "pyannote/speaker-diarization-3.1"
+      auth_required: true
+      
+    pyannote_3_0:
+      name: "Pyannote Speaker Diarization 3.0"
+      model_id: "pyannote/speaker-diarization-3.0"
+      auth_required: true
+
+# Video Analysis Models
+video_models:
+  # Shot detection
+  shot_detection:
+    transnetv2:
+      name: "TransNetV2"
+      model_id: "transnetv2"
+      framework: "tensorflow"
+      accuracy: "high"
+      speed: "fast"
+      
+    pyscenedetect:
+      name: "PySceneDetect"
+      model_id: "pyscenedetect"
+      framework: "opencv"
+      accuracy: "medium"
+      speed: "very_fast"
+      
+  # Face detection
+  face_detection:
+    # retinaface removed - incompatible with Python 3.12
+    yolov8:
+      name: "YOLOv8 Face"
+      model_id: "yolov8n-face"
+      framework: "pytorch"
+      accuracy: "good"
+      speed: "very_fast"
+      python312_compatible: true
+      
+    mtcnn:
+      name: "MTCNN"
+      model_id: "mtcnn"
+      framework: "tensorflow"
+      accuracy: "medium"
+      
+    yolov8_face:
+      name: "YOLOv8 Face"
+      model_id: "yolov8n-face"
+      framework: "pytorch"
+      accuracy: "good"
+      speed: "very_fast"
+      
+  # Face recognition
+  face_recognition:
+    arcface:
+      name: "ArcFace"
+      model_id: "arcface"
+      embedding_size: 512
+      
+    facenet:
+      name: "FaceNet"
+      model_id: "facenet"
+      embedding_size: 128
+      
+  # Emotion detection
+  emotion_detection:
+    fer:
+      name: "FER (Facial Expression Recognition)"
+      model_id: "fer"
+      emotions: ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"]
+      
+    deepface:
+      name: "DeepFace"
+      model_id: "deepface"
+      emotions: ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"]
+
+# Model Selection Presets
+model_presets:
+  minimal:
+    name: "Minimal Setup"
+    description: "Smallest models for testing or low-resource environments"
+    models:
+      vision_language: llava_7b_v1_6
+      whisper: tiny
+      shot_detection: pyscenedetect
+      face_detection: mtcnn
+      
+  balanced:
+    name: "Balanced Setup"
+    description: "Good balance between performance and resource usage"
+    models:
+      vision_language: llava_7b_v1_6
+      whisper: base
+      shot_detection: transnetv2
+      face_detection: retinaface
+      diarization: pyannote_3_1
+      emotion_detection: fer
+      
+  quality:
+    name: "Quality Setup"
+    description: "Best quality models, requires significant resources"
+    models:
+      vision_language: llava_13b_v1_6
+      whisper: large
+      shot_detection: transnetv2
+      face_detection: retinaface
+      face_recognition: arcface
+      diarization: pyannote_3_1
+      emotion_detection: deepface
+      
+  gpu_optimized:
+    name: "GPU Optimized"
+    description: "Models optimized for GPU acceleration"
+    models:
+      vision_language: llava_next_mistral_7b
+      whisper: medium
+      shot_detection: transnetv2
+      face_detection: yolov8_face
+      quantization: int8
+
+# Model Download URLs (for models not on HuggingFace)
+model_downloads:
+  transnetv2:
+    url: "https://github.com/soCzech/TransNetV2/releases/download/v1.0/transnetv2-weights.zip"
+    checksum: "md5:1234567890abcdef"
+    extract_to: "models/transnetv2/"
+    
+# API-based Models
+api_models:
+  openai:
+    gpt4_vision:
+      name: "GPT-4 Vision"
+      endpoint: "https://api.openai.com/v1/chat/completions"
+      model: "gpt-4-vision-preview"
+      requires_api_key: true
+      cost_per_1k_tokens: 0.03
+      
+    gpt4o:
+      name: "GPT-4o"
+      endpoint: "https://api.openai.com/v1/chat/completions"
+      model: "gpt-4o"
+      requires_api_key: true
+      cost_per_1k_tokens: 0.01
+      
+  anthropic:
+    claude_3_opus:
+      name: "Claude 3 Opus"
+      endpoint: "https://api.anthropic.com/v1/messages"
+      model: "claude-3-opus-20240229"
+      requires_api_key: true
+      supports_vision: true
+      
+  google:
+    gemini_pro_vision:
+      name: "Gemini Pro Vision"
+      endpoint: "https://generativelanguage.googleapis.com/v1/models/"
+      model: "gemini-pro-vision"
+      requires_api_key: true

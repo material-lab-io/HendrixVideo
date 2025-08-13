@@ -1,0 +1,52 @@
+# Visual Processing Dependencies
+
+# Face Detection
+ultralytics>=8.0.0          # YOLOv8 for face detection
+opencv-python>=4.8.0        # Computer vision library
+opencv-contrib-python>=4.8.0 # Additional OpenCV modules
+
+# Face Recognition/Embeddings
+insightface>=0.7.3          # Face recognition models
+onnxruntime-gpu>=1.16.0     # GPU inference for ONNX models
+mxnet>=1.9.1                # Required by InsightFace
+deepface>=0.0.79            # Face attribute analysis
+
+# Scene Detection
+scenedetect>=0.6.0          # Scene change detection
+av>=10.0.0                  # Video processing
+
+# Image Processing
+pillow>=10.0.0              # Image manipulation
+albumentations>=1.3.0       # Image augmentations
+imageio>=2.31.0             # Image I/O operations
+imageio-ffmpeg>=0.4.8       # FFmpeg wrapper for imageio
+
+# Clustering & Analysis
+scikit-learn>=1.3.0         # Machine learning algorithms
+faiss-gpu>=1.7.2            # Efficient similarity search and clustering
+hdbscan>=0.8.33             # Density-based clustering
+umap-learn>=0.5.4           # Dimensionality reduction
+
+# Data Processing
+numpy>=1.24.0               # Already installed, but ensuring version
+pandas>=2.0.0               # Data manipulation
+scipy>=1.11.0               # Scientific computing
+
+# Visualization (for development/debugging)
+matplotlib>=3.7.0           # Plotting
+seaborn>=0.12.0             # Statistical visualization
+plotly>=5.16.0              # Interactive plots
+
+# Video Processing
+decord>=0.6.0               # Efficient video reading
+vidgear>=0.3.0              # Video processing utilities
+
+# Deep Learning Models
+timm>=0.9.0                 # PyTorch image models
+torchvision>=0.15.0         # Already installed, ensuring compatibility
+
+# Utils
+tqdm>=4.65.0                # Progress bars (already installed)
+python-dotenv>=1.0.0        # Environment variables (already installed)
+PyYAML>=6.0                 # Configuration files
+click>=8.1.0                # CLI interface

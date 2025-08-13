@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Virtual environments
+bin/
+lib/
+lib64/
+include/
+pyvenv.cfg
+share/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+output/*
+!output/production/
+!output/production_improved/
+!output/improvement_evaluation_report.txt
+!output/improvement_statistics.json
+*.log
+*.json
+!config/*.json
+!config/*.yaml
+!output/production/*.json
+!output/production/*.srt
+!output/production/*.html
+!output/production_improved/*.json
+!output/production_improved/*.srt
+!output/production_improved/*.html
+
+# Model files
+*.pt
+*.pth
+*.bin
+
+# Temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Test files
+test_*.py
+!test_llava*.py
+
+# Evaluation reports
+*evaluation_report.txt
+*evaluation_report.md
+improvement_statistics.json
+
+# Keep important docs
+!README.md
+!CLAUDE.md
+!requirements.txt
+!improvements_summary.md

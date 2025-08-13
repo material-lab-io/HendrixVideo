@@ -1,0 +1,33 @@
+mllm:
+  provider: llava
+  model: llava-hf/llava-v1.6-vicuna-7b-hf
+  generation:
+    temperature: 0.3  # Lower for faster generation
+    max_tokens: 50    # Reduced from 100 for faster processing
+    do_sample: false  # Disable sampling for speed
+  device_config:
+    use_gpu: true
+    load_in_8bit: true
+    torch_dtype: float16
+
+fusion:
+  include_emotions: false  # Disable for speed
+  min_dialogue_confidence: 0.5  # Higher threshold to reduce processing
+
+prompt:
+  template: summary  # Shorter outputs than narrative
+  use_improved_templates: false  # Simpler prompts are faster
+
+output:
+  formats: [json, txt]  # Only essential formats
+  include_metadata: false  # Less data to process
+
+pipeline:
+  use_keyframes: false  # Skip image processing for speed
+  update_context: false  # Skip context updates between scenes
+  batch_size: 5  # Process multiple scenes in batch if possible
+  max_retry_attempts: 1  # Reduce retries
+
+advanced:
+  clear_cuda_cache: true  # Help with memory management
+  num_threads: 8  # Increase CPU threads

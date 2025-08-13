@@ -1,0 +1,35 @@
+# Captioning Component Requirements
+# Includes base requirements plus captioning-specific dependencies
+
+-r base.txt
+
+# Transformers and LLMs
+transformers>=4.36.0
+accelerate>=0.25.0
+bitsandbytes>=0.41.0  # For quantization
+safetensors>=0.4.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Vision-Language Models
+einops>=0.7.0
+timm>=0.9.0
+
+# Text Processing
+nltk>=3.8.0
+spacy>=3.6.0
+ftfy>=6.1.0
+langdetect>=1.0.9
+
+# Tokenization
+tiktoken>=0.5.0
+tokenizers>=0.15.0
+
+# API Clients (optional)
+openai>=1.0.0
+anthropic>=0.8.0
+
+# Captioning Formats
+webvtt-py>=0.4.6
+pysrt>=1.1.2
+pycaption>=2.1.0

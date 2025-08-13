@@ -1,0 +1,18 @@
+# Minimal Requirements for Hendrix Pipeline
+# Bare minimum to run the pipeline in test/mock mode
+
+# Core dependencies only
+torch>=2.1.0
+numpy>=1.26.0
+pillow>=10.0.0
+opencv-python>=4.8.0
+pyyaml>=6.0
+tqdm>=4.65.0
+requests>=2.31.0
+click>=8.1.0
+
+# Minimal transformers for mock models
+transformers>=4.30.0
+
+# Basic testing
+pytest>=7.4.0

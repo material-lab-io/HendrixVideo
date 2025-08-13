@@ -1,0 +1,25 @@
+# Comprehensive Captioning Requirements
+# Python 3.8+ required
+
+# Core dependencies
+pyyaml>=6.0
+requests>=2.31.0
+
+# LLaVA-NeXT dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+transformers>=4.36.0
+pillow>=10.0.0
+accelerate>=0.25.0
+
+# Optional API clients (uncomment if using)
+# openai>=1.0.0  # For OpenAI GPT-4 support
+# google-generativeai>=0.3.0  # For Google Gemini support
+
+# Development dependencies
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Logging and utilities
+python-dateutil>=2.8.2

@@ -1,0 +1,129 @@
+# Comprehensive Captioning Configuration
+# This file configures the behavior of the comprehensive captioning pipeline
+
+# MLLM (Multi-modal Large Language Model) settings
+mllm:
+  # Provider: llava, openai, or mock
+  provider: llava
+  
+  # Model name (specific to provider)
+  # For LLaVA: llava-hf/llava-v1.6-vicuna-7b-hf, llava-hf/llava-v1.6-vicuna-13b-hf
+  # For OpenAI: gpt-4, gpt-4-vision-preview
+  model: llava-hf/llava-v1.6-vicuna-7b-hf
+  
+  # Generation parameters
+  generation:
+    temperature: 0.7      # Controls randomness (0.0-1.0)
+    max_tokens: 150       # Maximum tokens to generate per caption (reduced for conciseness)
+    top_p: 0.9           # Nucleus sampling parameter
+    frequency_penalty: 0.0
+    presence_penalty: 0.0
+    stop_sequences: []    # Optional stop sequences
+
+# Data fusion settings
+fusion:
+  # Include emotion data in dialogue context
+  include_emotions: true
+  
+  # Include visual descriptions from scene analysis
+  include_visual_descriptions: true
+  
+  # Minimum confidence threshold for dialogue matches
+  min_dialogue_confidence: 0.5
+  
+  # Maximum dialogue segments per scene (0 = unlimited)
+  max_dialogue_per_scene: 0
+
+# Prompt template settings
+prompt:
+  # Template name: narrative, narrative_with_emotions, narrative_technical,
+  # descriptive, summary, or custom
+  template: narrative_with_emotions
+  
+  # Use improved templates if available (reduces repetition, adds dialogue quotes)
+  use_improved_templates: true
+  
+  # Custom template (only used if template = "custom")
+  custom_template: |
+    Scene {scene_id}: {start_time}s - {end_time}s
+    Visual: {visual_description}
+    Characters: {characters}
+    Dialogue: {dialogue}
+    Previous: {prior_summary}
+    
+    Write a narrative summary:
+
+# Output format settings
+output:
+  # Formats to generate: json, srt, webvtt, txt, html
+  formats:
+    - json
+    - srt
+    - webvtt
+    - html
+  
+  # Include metadata in outputs
+  include_metadata: true
+  
+  # Output file naming
+  base_filename: comprehensive_captions
+  
+  # Add timestamp to output filenames
+  add_timestamp: true
+
+# Pipeline settings
+pipeline:
+  # Retry settings for MLLM calls
+  retry_attempts: 3
+  retry_delay: 1.0  # seconds
+  
+  # Update context between scenes
+  update_context: true
+  
+  # Use keyframes for visual context (if available)
+  use_keyframes: true
+  
+  # Logging level: DEBUG, INFO, WARNING, ERROR
+  log_level: INFO
+
+# Advanced settings
+advanced:
+  # Model loading settings (for LLaVA)
+  model_loading:
+    device: auto  # auto, cuda, cpu
+    low_cpu_mem_usage: true
+    torch_dtype: auto  # auto, float16, float32
+  
+  # Batch processing
+  batch_size: 1  # Number of scenes to process in parallel
+  
+  # Memory management
+  clear_cache_after_scenes: 10  # Clear GPU cache after N scenes
+  
+  # Fallback behavior
+  fallback_on_error: true
+  fallback_caption: "[Caption generation failed]"
+
+# Scene processing filters
+filters:
+  # Minimum scene duration to caption (seconds)
+  min_scene_duration: 0.5
+  
+  # Maximum scene duration to caption (seconds, 0 = no limit)
+  max_scene_duration: 0
+  
+  # Skip scenes without dialogue
+  skip_silent_scenes: false
+  
+  # Skip scenes without identified characters
+  skip_no_character_scenes: false
+
+# Integration settings
+integration:
+  # Expected paths (can be overridden by command line)
+  audio_analysis_pattern: "output/optimized_robust/session_*"
+  scene_analysis_filename: "scenes.json"
+  keyframes_dirname: "keyframes"
+  
+  # Time alignment tolerance (seconds)
+  time_alignment_tolerance: 0.5

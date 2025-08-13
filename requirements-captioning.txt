@@ -1,0 +1,16 @@
+# Hendrix Captioning Component Requirements
+# Includes base requirements plus captioning-specific dependencies
+
+# Include base requirements
+-r requirements-base.txt
+
+# LLaVA-NeXT and Transformers
+transformers>=4.36.0  # Higher version for latest model support
+accelerate>=0.25.0
+
+# Additional utilities
+python-dateutil>=2.8.2
+
+# Optional API clients (uncomment if using)
+# openai>=1.0.0  # For OpenAI GPT-4 support
+# google-generativeai>=0.3.0  # For Google Gemini support

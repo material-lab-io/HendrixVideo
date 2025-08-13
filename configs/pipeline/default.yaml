@@ -1,0 +1,66 @@
+# Default Pipeline Configuration
+# Inherits from base_config.yaml
+
+# Import base configuration
+extends: ../base_config.yaml
+
+# Default profile to use
+profile: balanced
+
+# Pipeline-specific overrides
+pipeline:
+  name: "Hendrix Complete Pipeline"
+  version: "2.0.0"
+  
+  # Component execution order
+  components_order:
+    - video_analysis
+    - character_dialogue  
+    - captioning
+    
+  # Component dependencies
+  dependencies:
+    character_dialogue:
+      requires: [video_analysis]
+    captioning:
+      requires: [video_analysis, character_dialogue]
+      
+  # Parallel processing settings
+  parallel:
+    enabled: true
+    max_workers: 2
+    components:
+      - [video_analysis.shot_detection, character_dialogue.audio_processing]
+      
+  # Checkpointing
+  checkpoint:
+    enabled: true
+    save_interval: 5  # Save progress every 5 scenes
+    resume_on_failure: true
+    checkpoint_dir: checkpoints/
+
+# Input validation
+input:
+  supported_formats:
+    - mp4
+    - avi
+    - mov
+    - mkv
+    - webm
+  max_file_size_gb: 50
+  min_duration_seconds: 1
+  max_duration_hours: 5
+
+# Integration settings
+integrations:
+  # Model downloading
+  huggingface:
+    cache_dir: ~/.cache/huggingface
+    offline_mode: false
+    
+  # Cloud storage (optional)
+  cloud_storage:
+    enabled: false
+    provider: none  # Options: s3, gcs, azure
+    bucket: ""
+    prefix: "hendrix-outputs/"

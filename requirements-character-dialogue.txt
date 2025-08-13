@@ -1,0 +1,12 @@
+# Hendrix Character Dialogue Analysis Requirements
+# Full requirements combining audio and visual processing
+
+# Include both audio and visual requirements
+-r requirements-audio.txt
+-r requirements-visual.txt
+
+# OCR capabilities
+easyocr>=1.7.0
+
+# Note: This will include all dependencies from both audio and visual processing
+# Some redundancy is expected but pip will handle deduplication

@@ -1,0 +1,33 @@
+# Test configuration with mock MLLM
+mllm:
+  provider: mock
+  model: mock-model
+  
+fusion:
+  include_emotions: true
+  include_visual_descriptions: true
+  min_dialogue_confidence: 0.5
+  max_dialogue_per_scene: 0
+
+prompt:
+  template: narrative_with_emotions
+
+output:
+  formats:
+    - json
+    - srt
+  include_metadata: true
+  base_filename: test_captions
+  add_timestamp: false
+
+pipeline:
+  retry_attempts: 1
+  retry_delay: 0.1
+  update_context: true
+  use_keyframes: false
+  log_level: INFO
+
+filters:
+  min_scene_duration: 0.5
+  skip_silent_scenes: false
+  skip_no_character_scenes: false

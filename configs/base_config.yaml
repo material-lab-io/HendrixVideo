@@ -1,0 +1,299 @@
+# Hendrix Pipeline - Unified Configuration System
+# This is the main configuration file for all pipeline components
+
+# Model Profiles - Easily swap models by changing active_model
+models:
+  # LLaVA Models
+  llava_7b:
+    provider: llava
+    model: llava-hf/llava-v1.6-vicuna-7b-hf
+    device_config:
+      device_map: auto
+      torch_dtype: float16
+      load_in_8bit: false
+      load_in_4bit: false
+      low_cpu_mem_usage: true
+      
+  llava_13b:
+    provider: llava  
+    model: llava-hf/llava-v1.6-vicuna-13b-hf
+    device_config:
+      device_map: auto
+      torch_dtype: float16
+      load_in_8bit: true  # 8-bit quantization for larger model
+      load_in_4bit: false
+      low_cpu_mem_usage: true
+      
+  llava_next:
+    provider: llava
+    model: llava-hf/llava-v1.6-34b
+    device_config:
+      device_map: auto
+      torch_dtype: float16
+      load_in_4bit: true  # 4-bit for very large model
+      low_cpu_mem_usage: true
+      
+  # OpenAI Models  
+  openai_gpt4:
+    provider: openai
+    model: gpt-4-vision-preview
+    api_key: ${OPENAI_API_KEY}  # From environment variable
+    max_retries: 3
+    timeout: 30
+    
+  openai_gpt4o:
+    provider: openai
+    model: gpt-4o
+    api_key: ${OPENAI_API_KEY}
+    max_retries: 3
+    timeout: 30
+    
+  # Mock Model for Testing
+  mock:
+    provider: mock
+    model: mock-model
+    
+# Audio Models
+audio_models:
+  whisper:
+    model: base  # Options: tiny, base, small, medium, large
+    device: cuda
+    language: auto  # Auto-detect or specify: en, es, fr, etc.
+    
+  diarization:
+    model: pyannote/speaker-diarization-3.1
+    device: cuda
+    min_speakers: 1
+    max_speakers: 10
+    
+# Video Analysis Models  
+video_models:
+  shot_detection:
+    model: transnetv2
+    confidence_threshold: 0.5
+    min_shot_duration: 0.5
+    device: cuda
+    
+  face_detection:
+    model: yolov8  # Changed from retinaface due to Python 3.12 compatibility
+    confidence_threshold: 0.7
+    device: cuda
+    
+  emotion_detection:
+    model: fer
+    device: cuda
+
+# Active Model Selection - Change this to swap models
+active_model: llava_7b
+
+# Shared Generation Parameters
+generation:
+  temperature: 0.7
+  max_tokens: 150
+  top_p: 0.9
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+  do_sample: true
+  num_beams: 1
+
+# Component-Specific Settings
+components:
+  video_analysis:
+    shot_detection:
+      enabled: true
+      method: transnetv2  # Options: transnetv2, frame_difference
+      save_keyframes: true
+      keyframe_selection: middle  # Options: middle, first, last, all
+      
+    scene_construction:
+      merge_threshold: 10.0  # Seconds
+      max_frames_per_batch: 10
+      use_visual_similarity: true
+      
+  character_dialogue:
+    audio_processing:
+      transcription:
+        enabled: true
+        chunk_length: 30  # Seconds
+        language: auto
+      diarization:
+        enabled: true
+        merge_threshold: 0.5
+        
+    visual_processing:
+      face_detection:
+        enabled: true
+        track_faces: true
+        save_faces: false
+      emotion_detection:
+        enabled: true
+        
+    fusion:
+      match_speakers_to_faces: true
+      confidence_threshold: 0.6
+      
+  captioning:
+    fusion:
+      include_emotions: true
+      include_visual_descriptions: true
+      include_speaker_labels: true
+      min_dialogue_confidence: 0.5
+      
+    prompt:
+      template: narrative_with_emotions
+      use_improved_templates: true
+      system_prompt: "You are a helpful assistant that creates accurate video captions."
+      
+    context:
+      maintain_story_context: true
+      max_context_scenes: 5
+      update_frequency: 1  # Update every N scenes
+
+# Pipeline Settings
+pipeline:
+  # Processing
+  batch_size: 1
+  use_gpu: true
+  device: cuda:0  # Options: cuda:0, cuda:1, cpu, auto
+  num_workers: 4
+  
+  # Error Handling
+  retry_attempts: 3
+  retry_delay: 1.0
+  continue_on_error: true
+  
+  # Logging
+  log_level: INFO  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_to_file: true
+  log_file: logs/hendrix_pipeline.log
+  
+  # Performance
+  use_cache: true
+  cache_dir: ~/.cache/hendrix
+  clear_cache_on_start: false
+
+# Output Configuration
+output:
+  base_directory: ./outputs
+  create_timestamp_folder: true
+  
+  formats:
+    - json        # Complete analysis data
+    - srt         # Standard subtitle format
+    - webvtt      # Web subtitle format
+    - html        # Visual timeline
+    - txt         # Plain text transcript
+    
+  naming:
+    base_filename: "${video_name}_analysis"
+    add_timestamp: true
+    timestamp_format: "%Y%m%d_%H%M%S"
+    
+  metadata:
+    include_metadata: true
+    include_model_info: true
+    include_processing_time: true
+    include_version: true
+
+# Resource Management
+resources:
+  memory:
+    max_gpu_memory_fraction: 0.9  # Use up to 90% of GPU memory
+    clear_cache_after_scenes: 10   # Free GPU memory periodically
+    enable_gradient_checkpointing: true
+    
+  cpu:
+    num_threads: 8
+    set_torch_threads: true
+    
+  disk:
+    temp_directory: /tmp/hendrix
+    cleanup_temp_files: true
+    max_cache_size_gb: 50
+
+# Profiles for Different Use Cases
+profiles:
+  fast:
+    name: "Fast Processing"
+    description: "Optimized for speed with reduced quality"
+    overrides:
+      active_model: llava_7b
+      generation:
+        temperature: 0.3
+        max_tokens: 50
+      components:
+        video_analysis:
+          shot_detection:
+            keyframe_selection: middle
+        character_dialogue:
+          visual_processing:
+            emotion_detection:
+              enabled: false
+        captioning:
+          fusion:
+            include_emotions: false
+            include_visual_descriptions: false
+      pipeline:
+        batch_size: 4
+        retry_attempts: 1
+        
+  quality:
+    name: "High Quality"
+    description: "Maximum quality with all features enabled"
+    overrides:
+      active_model: llava_13b
+      generation:
+        temperature: 0.7
+        max_tokens: 200
+      components:
+        video_analysis:
+          shot_detection:
+            keyframe_selection: all
+        character_dialogue:
+          visual_processing:
+            face_detection:
+              save_faces: true
+        captioning:
+          fusion:
+            include_emotions: true
+            include_visual_descriptions: true
+          context:
+            max_context_scenes: 10
+      resources:
+        memory:
+          enable_gradient_checkpointing: false
+          
+  balanced:
+    name: "Balanced"
+    description: "Good balance between speed and quality"
+    # Uses base configuration without overrides
+    
+  test:
+    name: "Testing"
+    description: "For development and testing"
+    overrides:
+      active_model: mock
+      pipeline:
+        retry_attempts: 1
+        retry_delay: 0.1
+        log_level: DEBUG
+      output:
+        formats: [json]
+        create_timestamp_folder: false
+      resources:
+        memory:
+          max_gpu_memory_fraction: 0.5
+
+# Development Settings
+development:
+  debug_mode: false
+  save_intermediate_outputs: false
+  profile_performance: false
+  enable_breakpoints: false
+  mock_external_apis: false
+
+# Version Information
+version:
+  config_version: "2.0.0"
+  min_pipeline_version: "1.0.0"
+  last_updated: "2024-08-12"

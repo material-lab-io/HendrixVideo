@@ -1,0 +1,20 @@
+# Hendrix Video Analysis Component Requirements
+# Includes base requirements plus video-specific dependencies
+
+# Include base requirements
+-r requirements-base.txt
+
+# Transformers (base version sufficient)
+transformers>=4.30.0
+accelerate>=0.20.0
+
+# Video Processing
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+
+# Shot Detection
+transnetv2-pytorch>=1.0.1
+
+# LLaVA support
+sentencepiece>=0.1.99
+protobuf>=4.23.0

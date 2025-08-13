@@ -1,0 +1,50 @@
+# Video Analysis Pipeline Configuration
+
+# General settings
+general:
+  output_format: "json"
+  save_intermediate_results: true
+  temp_directory: "./temp"
+  log_level: "INFO"
+
+# Stage 1: Shot Detection
+shot_detection:
+  model_name: "transnetv2"
+  confidence_threshold: 0.5
+  min_shot_duration: 0.5  # seconds
+  detect_gradual_transitions: true
+  
+# Stage 2: Scene Construction
+scene_construction:
+  model_name: "llava-hf/llava-1.5-7b-hf"
+  keyframe_extraction_method: "middle"  # options: middle, first, last, best
+  max_frames_per_batch: 10
+  temperature: 0.7
+  max_tokens: 2048
+  # Model loading configuration
+  model_config:
+    device_map: "auto"
+    torch_dtype: "float16"  # Use float16 for memory efficiency
+    load_in_8bit: false     # Set to true for 8-bit quantization
+    load_in_4bit: false     # Set to true for 4-bit quantization
+  
+# Stage 3: Cinematic Analysis
+cinematic_analysis:
+  enabled: false  # Will be enabled when Stage 3 model is specified
+  model_name: "placeholder"
+  
+# Pipeline settings
+pipeline:
+  batch_size: 32
+  use_gpu: true
+  device: "cuda:0"  # or "cpu"
+  progress_tracking: true
+  save_keyframes: true
+  keyframes_directory: "./keyframes"
+  
+# Output settings
+output:
+  shots_file: "./output/shots.json"
+  scenes_file: "./output/scenes.json"
+  analysis_file: "./output/analysis.json"
+  combined_output: "./output/video_analysis_complete.json"

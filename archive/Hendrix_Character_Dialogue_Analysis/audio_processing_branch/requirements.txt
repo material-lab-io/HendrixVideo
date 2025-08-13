@@ -1,0 +1,56 @@
+# Core ML Framework
+torch>=2.0.0
+torchaudio>=2.0.0
+torchvision>=0.15.0
+
+# Audio Processing
+openai-whisper>=20230314
+pyannote.audio>=3.0.0
+librosa>=0.10.0
+soundfile>=0.12.0
+pydub>=0.25.0
+
+# Speech Emotion Recognition
+transformers>=4.35.0
+datasets>=2.14.0
+speechbrain>=0.5.0
+
+# Vision Processing
+ultralytics>=8.0.0
+insightface>=0.7.3
+onnxruntime-gpu>=1.16.0
+deepface>=0.0.79
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# OCR
+easyocr>=1.7.0
+
+# Multimodal LLM (for matching)
+# Note: LLaVA requires specific setup
+Pillow>=10.0.0
+requests>=2.31.0
+
+# Data Processing & ML
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# Video Processing
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+
+# Utilities
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+pyyaml>=6.0
+jsonschema>=4.19.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+ipython>=8.14.0
+jupyter>=1.0.0

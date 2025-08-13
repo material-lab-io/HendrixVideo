@@ -1,0 +1,31 @@
+# Hendrix Audio Processing Component Requirements
+# Includes base requirements plus audio-specific dependencies
+
+# Include base requirements
+-r requirements-base.txt
+
+# Audio ML Framework
+torchaudio>=2.0.0
+
+# Audio Processing
+openai-whisper>=20230314
+pyannote.audio>=3.0.0
+librosa>=0.10.0
+soundfile>=0.12.0
+pydub>=0.25.0
+
+# Speech & Emotion Recognition
+transformers>=4.35.0
+datasets>=2.14.0
+speechbrain>=0.5.0
+
+# Video Processing (for audio extraction)
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+
+# Additional utilities
+jsonschema>=4.19.0
+
+# Development tools (optional)
+ipython>=8.14.0
+jupyter>=1.0.0

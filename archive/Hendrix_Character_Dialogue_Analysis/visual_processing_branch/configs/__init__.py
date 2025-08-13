@@ -1,0 +1,1 @@
+# Configuration module for visual processing pipeline

@@ -1,0 +1,21 @@
+# Video Analysis Component Requirements
+# Includes base requirements plus video-specific dependencies
+
+-r base.txt
+
+# Video Processing
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+vidgear>=0.3.2
+
+# Shot Detection
+scenedetect>=0.6.0
+# TransNetV2 requires tensorflow, but it's optional
+# tensorflow>=2.13.0  # Uncomment if using TransNetV2
+
+# Frame Analysis
+imagehash>=4.3.1
+scikit-image>=0.21.0
+
+# Progress Tracking
+rich>=13.4.0
