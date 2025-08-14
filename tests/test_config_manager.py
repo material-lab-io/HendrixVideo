@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import yaml
 
-from components.config_manager import ConfigManager
+from hendrix.core.config import ConfigManager
 
 
 class TestConfigManager:

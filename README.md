@@ -31,59 +31,63 @@ A comprehensive AI-powered video analysis pipeline that combines computer vision
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### One-Click Installation
 
-- Python 3.8+ (tested with 3.12)
-- CUDA-capable GPU (optional but recommended)
-- FFmpeg installed on your system
-- 16GB+ RAM recommended
-- 50GB+ free disk space for models
+**Method 1: Automatic Installer (Recommended)**
+```bash
+curl -sSL https://raw.githubusercontent.com/material-lab-io/HendrixVideo/main/install.sh | bash
+```
 
-### Installation
+**Method 2: Manual Installation**
+```bash
+# Clone and install
+git clone https://github.com/material-lab-io/HendrixVideo.git
+cd HendrixVideo
+chmod +x install.sh && ./install.sh
+```
 
-1. **Clone the repository**
+**Method 3: Docker (Zero Dependencies)**
+```bash
+# Build and run with Docker
+docker build -t hendrix-video .
+docker run -v $(pwd)/data:/app/data -v $(pwd)/outputs:/app/outputs hendrix-video analyze /app/data/your_video.mp4
+```
+
+**Method 4: Using Make**
 ```bash
 git clone https://github.com/material-lab-io/HendrixVideo.git
 cd HendrixVideo
+make install-all  # Install with all features
 ```
 
-2. **Create virtual environment**
-```bash
-python -m venv hendrix_venv
-source hendrix_venv/bin/activate  # On Windows: hendrix_venv\Scripts\activate
-```
+### Prerequisites (Auto-installed by installer)
 
-3. **Install dependencies**
-```bash
-# For complete installation
-pip install -r requirements/all.txt
-
-# For minimal installation (testing only)
-pip install -r requirements/minimal.txt
-
-# For specific components
-pip install -r requirements/video.txt      # Video analysis only
-pip install -r requirements/audio.txt      # Audio processing only
-pip install -r requirements/captioning.txt # Caption generation only
-```
-
-4. **Download required models**
-```bash
-bash scripts/setup/download_models.sh
-```
+- Python 3.8+ (tested with 3.12)
+- FFmpeg (automatically installed)
+- CUDA-capable GPU (optional but recommended)
 
 ### Basic Usage
 
 ```bash
-# Run the complete pipeline on a video
-bash scripts/pipeline/run_complete.sh path/to/your/video.mp4
+# Analyze any video file (one command!)
+hendrix analyze your_video.mp4
 
-# Run with GPU optimization
-bash scripts/pipeline/run_gpu_optimized.sh path/to/your/video.mp4
+# Use different quality profiles
+hendrix analyze video.mp4 --profile fast     # Quick analysis
+hendrix analyze video.mp4 --profile quality  # Best quality
+hendrix analyze video.mp4 --profile balanced # Default
 
-# Run with a specific profile
-python -m hendrix_pipeline --video path/to/video.mp4 --profile fast
+# Specify output directory
+hendrix analyze video.mp4 --output ./results
+
+# Run specific components only
+hendrix analyze video.mp4 --components video audio
+
+# Docker usage
+docker run -v $(pwd):/data hendrix-video analyze /data/video.mp4
 ```
+
+**That's it! No configuration required. 🎉**
 
 ## 📁 Project Structure
 

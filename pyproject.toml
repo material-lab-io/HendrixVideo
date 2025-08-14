@@ -1,41 +1,119 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hendrix-video-analysis"
-version = "2.1.0"
-description = "AI-powered video analysis pipeline with shot detection, transcription, and caption generation"
+name = "hendrix-video"
+version = "3.0.0"
+description = "AI-powered video analysis pipeline for shot detection, transcription, and caption generation"
 readme = "README.md"
-requires-python = ">=3.8"
-license = {text = "MIT"}
+license = {file = "LICENSE"}
 authors = [
-    {name = "Hendrix Contributors", email = "contact@hendrix-project.org"},
+    {name = "Material Lab", email = "info@material-lab.io"}
 ]
-keywords = ["video", "analysis", "ai", "computer-vision", "speech-recognition", "captioning"]
+keywords = ["video", "analysis", "ai", "computer-vision", "transcription"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Video",
+]
+requires-python = ">=3.8"
+
+# Core dependencies - minimal install
+dependencies = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "numpy>=1.26.0", 
+    "opencv-python>=4.8.0",
+    "pillow>=10.0.0",
+    "pyyaml>=6.0",
+    "click>=8.1.0",
+    "tqdm>=4.65.0",
+    "requests>=2.31.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.3.0",
+    "moviepy>=1.0.3",
+    "imageio>=2.31.0",
+    "imageio-ffmpeg>=0.4.8",
+]
+
+[project.optional-dependencies]
+# AI Models - for full functionality
+models = [
+    "transformers>=4.30.0",
+    "accelerate>=0.20.0",
+    "safetensors>=0.4.0",
+    "sentence-transformers>=2.2.0",
+]
+
+# Audio processing capabilities  
+audio = [
+    "openai-whisper>=20231117",
+    "librosa>=0.10.0",
+    "soundfile>=0.12.0",
+    "pyannote.audio>=3.1.0",
+    "speechbrain>=0.5.16",
+]
+
+# Visual processing enhancements
+visual = [
+    "scikit-image>=0.21.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+]
+
+# Development dependencies
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+# Docker and deployment
+docker = [
+    "uvicorn>=0.24.0",
+    "fastapi>=0.104.0",
+]
+
+# All optional dependencies
+all = [
+    "hendrix-video[models,audio,visual,dev,docker]"
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/hendrix_12aug"
-Documentation = "https://github.com/yourusername/hendrix_12aug/tree/main/docs"
-Repository = "https://github.com/yourusername/hendrix_12aug"
-Issues = "https://github.com/yourusername/hendrix_12aug/issues"
+Homepage = "https://github.com/material-lab-io/HendrixVideo"
+Documentation = "https://github.com/material-lab-io/HendrixVideo/docs"
+Repository = "https://github.com/material-lab-io/HendrixVideo"
+"Bug Tracker" = "https://github.com/material-lab-io/HendrixVideo/issues"
 
 [project.scripts]
-hendrix = "hendrix_pipeline:main"
+hendrix = "hendrix.cli:main"
 
-[tool.setuptools]
-packages = ["components", "hendrix_pipeline"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hendrix*"]
+exclude = [
+    "tests*",
+    "archive*",
+    "hendrix_venv*",
+    "outputs*",
+    "temp*",
+    "cache*",
+    "keyframes*",
+]
 
 [tool.setuptools.package-data]
 "*" = ["*.yaml", "*.yml", "*.json"]

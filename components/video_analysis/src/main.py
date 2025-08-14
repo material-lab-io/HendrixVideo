@@ -17,11 +17,16 @@ import yaml
 from pathlib import Path
 from typing import Dict, Any
 
-from .schemas.analysis import AnalysisResult, VideoMetadata
-from .pipeline.shot_detection import ShotDetectionPipeline
-from .pipeline.scene_construction import SceneConstructionPipeline
-from .pipeline.cinematic_analysis import CinematicAnalysisPipeline
-from .utils.video_utils import VideoProcessor
+# Add the parent directory to the path so we can import from components
+current_dir = Path(__file__).parent
+components_dir = current_dir.parent.parent
+sys.path.insert(0, str(components_dir))
+
+from video_analysis.src.schemas.analysis import AnalysisResult, VideoMetadata
+from video_analysis.src.pipeline.shot_detection import ShotDetectionPipeline
+from video_analysis.src.pipeline.scene_construction import SceneConstructionPipeline
+from video_analysis.src.pipeline.cinematic_analysis import CinematicAnalysisPipeline
+from video_analysis.src.utils.video_utils import VideoProcessor
 
 # Configure logging
 logging.basicConfig(

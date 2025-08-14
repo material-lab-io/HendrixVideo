@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  hendrix:
+    build: .
+    image: hendrix-video:latest
+    container_name: hendrix-pipeline
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./cache:/app/.cache
+    environment:
+      - HENDRIX_PROFILE=balanced
+      - HENDRIX_DEVICE=auto
+    restart: unless-stopped
+    
+  # GPU-enabled version (requires NVIDIA Docker)
+  hendrix-gpu:
+    build: .
+    image: hendrix-video:latest
+    container_name: hendrix-pipeline-gpu
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - HENDRIX_PROFILE=quality
+      - HENDRIX_DEVICE=cuda:0
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./cache:/app/.cache
+    restart: unless-stopped
+    profiles:
+      - gpu
+
+  # Web interface (future enhancement)
+  hendrix-web:
+    build: .
+    image: hendrix-video:latest
+    container_name: hendrix-web
+    ports:
+      - "8000:8000"
+    environment:
+      - HENDRIX_MODE=web
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    restart: unless-stopped
+    profiles:
+      - web
+    depends_on:
+      - hendrix
