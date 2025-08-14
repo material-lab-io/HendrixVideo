@@ -15,7 +15,7 @@ torchaudio==2.2.2+cu118
 # Transformers & Language Models
 # =============================================================================
 transformers==4.36.0  # Unified highest version for all components
-accelerate==0.25.0    # GPU memory optimization
+accelerate==1.10.0    # GPU memory optimization
 sentencepiece>=0.1.99
 protobuf>=4.23.0
 tokenizers>=0.15.0
