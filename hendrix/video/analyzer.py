@@ -76,7 +76,8 @@ class VideoAnalyzer:
             shots = detector.detect(video_path, output_dir)
             
             return {
-                "shots_count": len(shots),
+                "shots_detected": len(shots),
+                "shots_count": len(shots), 
                 "shots_file": str(output_dir / "shots.json")
             }
             
@@ -87,6 +88,7 @@ class VideoAnalyzer:
         except Exception as e:
             logger.error(f"Shot detection failed: {e}")
             return {
+                "shots_detected": 0,
                 "shots_count": 0,
                 "shots_file": None,
                 "error": str(e)
@@ -144,6 +146,7 @@ class VideoAnalyzer:
             json.dump({"shots": mock_shots}, f, indent=2)
         
         return {
+            "shots_detected": len(mock_shots),
             "shots_count": len(mock_shots),
             "shots_file": str(shots_file),
             "method": "mock"
@@ -157,6 +160,7 @@ class VideoAnalyzer:
         scenes_count = max(1, shots_count // 2)
         
         return {
+            "scenes_created": scenes_count,
             "scenes_count": scenes_count,
             "scenes_file": None,
             "method": "mock"

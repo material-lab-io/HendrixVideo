@@ -3,7 +3,20 @@
 # Hendrix Video Analysis Pipeline - One-Click Installer
 # This script installs Hendrix with all dependencies
 
-set -e  # Exit on error
+set -euo pipefail  # Exit on error, undefined vars, pipe failures
+
+# Security: Validate environment
+if [[ $EUID -eq 0 ]]; then
+   echo -e "${RED}❌ This script should not be run as root for security reasons${NC}"
+   exit 1
+fi
+
+# Security: Validate script integrity (basic check)
+if [[ ! -f "pyproject.toml" ]] || [[ ! -d "hendrix" ]]; then
+    echo -e "${RED}❌ Security check failed: Required files not found${NC}"
+    echo "Please ensure you're running this from the HendrixVideo repository root"
+    exit 1
+fi
 
 # Colors for output
 RED='\033[0;31m'
