@@ -93,6 +93,12 @@ By participating in this project, you agree to abide by our Code of Conduct:
 
 ## Coding Standards
 
+Please refer to our [Style Guide](STYLE_GUIDE.md) for detailed coding conventions, including:
+- Import style and organization
+- Code formatting standards
+- Documentation requirements
+- Git commit message format
+
 ### Python Style Guide
 
 We follow PEP 8 with some modifications:
@@ -101,6 +107,7 @@ We follow PEP 8 with some modifications:
 - **Formatting**: Use Black formatter
 - **Import sorting**: Use isort
 - **Type hints**: Required for public APIs
+- **Imports**: Use relative imports for internal modules (see [Style Guide](STYLE_GUIDE.md#import-style))
 
 ### Code Formatting
 

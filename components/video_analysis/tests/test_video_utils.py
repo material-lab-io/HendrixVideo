@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch, MagicMock
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from utils.video_utils import VideoProcessor, calculate_frame_difference, resize_frame_aspect_ratio
+from ..src.utils.video_utils import VideoProcessor, calculate_frame_difference, resize_frame_aspect_ratio
 
 
 class TestVideoProcessor:

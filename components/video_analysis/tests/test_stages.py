@@ -9,11 +9,11 @@ import numpy as np
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from pipeline.shot_detection import ShotDetectionPipeline
-from pipeline.scene_construction import SceneConstructionPipeline
-from pipeline.cinematic_analysis import CinematicAnalysisPipeline
-from schemas.shot import Shot
-from schemas.scene import Scene
+from ..src.pipeline.shot_detection import ShotDetectionPipeline
+from ..src.pipeline.scene_construction import SceneConstructionPipeline
+from ..src.pipeline.cinematic_analysis import CinematicAnalysisPipeline
+from ..src.schemas.shot import Shot
+from ..src.schemas.scene import Scene
 
 
 class TestShotDetectionPipeline:
