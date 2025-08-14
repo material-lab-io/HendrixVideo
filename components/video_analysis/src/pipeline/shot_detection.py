@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 import time
 
-from models.autoshot import AutoShotDetector
-from models.transnetv2 import TransNetV2Detector
-from schemas.shot import Shot
-from utils.video_utils import VideoProcessor
+from ..models.autoshot import AutoShotDetector
+from ..models.transnetv2 import TransNetV2Detector
+from ..schemas.shot import Shot
+from ..utils.video_utils import VideoProcessor
 
 logger = logging.getLogger(__name__)
 

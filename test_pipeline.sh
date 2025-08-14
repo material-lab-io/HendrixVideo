@@ -14,7 +14,8 @@ echo -e "${BLUE}HENDRIX PIPELINE TEST${NC}"
 echo -e "${BLUE}========================================${NC}"
 
 # Change to project directory
-cd /dev-work/hendrix_12aug
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd "$SCRIPT_DIR"
 
 # Activate virtual environment
 echo -e "${YELLOW}Activating virtual environment...${NC}"

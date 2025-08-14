@@ -55,8 +55,8 @@ brew install ffmpeg git python
 ### Step 2: Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/hendrix_12aug.git
-cd hendrix_12aug
+git clone https://github.com/material-lab-io/HendrixVideo.git
+cd HendrixVideo
 ```
 
 ### Step 3: Create Virtual Environment
@@ -139,7 +139,8 @@ For a quick test with minimal processing:
 
 ```bash
 # Download test video (30 seconds)
-wget https://example.com/sample_video.mp4 -O test_video.mp4
+# Use one of the test videos already in the repository
+# Or download a sample video from your preferred source
 
 # Run with fast profile
 python -m hendrix_pipeline --video test_video.mp4 --profile fast --output-dir test_output
@@ -350,7 +351,7 @@ python -m hendrix_pipeline --video input.mp4 \
 ### Getting Help
 
 1. Check the [FAQ](FAQ.md)
-2. Search [existing issues](https://github.com/yourusername/hendrix/issues)
+2. Search [existing issues](https://github.com/material-lab-io/HendrixVideo/issues)
 3. Join our [Discord community](https://discord.gg/hendrix)
 4. Create a new issue with:
    - System information

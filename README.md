@@ -43,8 +43,8 @@ A comprehensive AI-powered video analysis pipeline that combines computer vision
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/hendrix_12aug.git
-cd hendrix_12aug
+git clone https://github.com/material-lab-io/HendrixVideo.git
+cd HendrixVideo
 ```
 
 2. **Create virtual environment**
@@ -252,5 +252,5 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 ## 📞 Support
 
 - Documentation: [docs/](docs/)
-- Issues: [GitHub Issues](https://github.com/yourusername/hendrix_12aug/issues)
-- Discussions: [GitHub Discussions](https://github.com/yourusername/hendrix_12aug/discussions)
+- Issues: [GitHub Issues](https://github.com/material-lab-io/HendrixVideo/issues)
+- Discussions: [GitHub Discussions](https://github.com/material-lab-io/HendrixVideo/discussions)

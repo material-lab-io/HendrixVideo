@@ -17,11 +17,11 @@ import yaml
 from pathlib import Path
 from typing import Dict, Any
 
-from schemas.analysis import AnalysisResult, VideoMetadata
-from pipeline.shot_detection import ShotDetectionPipeline
-from pipeline.scene_construction import SceneConstructionPipeline
-from pipeline.cinematic_analysis import CinematicAnalysisPipeline
-from utils.video_utils import VideoProcessor
+from .schemas.analysis import AnalysisResult, VideoMetadata
+from .pipeline.shot_detection import ShotDetectionPipeline
+from .pipeline.scene_construction import SceneConstructionPipeline
+from .pipeline.cinematic_analysis import CinematicAnalysisPipeline
+from .utils.video_utils import VideoProcessor
 
 # Configure logging
 logging.basicConfig(
