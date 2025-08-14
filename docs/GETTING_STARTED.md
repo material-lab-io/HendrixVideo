@@ -89,6 +89,16 @@ pip install -r requirements/audio.txt     # For audio processing
 pip install -r requirements/captioning.txt # For caption generation
 ```
 
+**Option D: Development Mode (Recommended for Contributors)**
+```bash
+# Install in editable mode to allow code changes without reinstallation
+pip install -e .
+pip install -r requirements/dev.txt  # Development dependencies
+
+# This allows you to modify the code and test immediately
+# Changes to Python files will be reflected without reinstalling
+```
+
 ### Step 5: Download Models
 
 ```bash
@@ -138,9 +148,15 @@ python -m hendrix_pipeline --video examples/sample_video.mp4 --profile test
 For a quick test with minimal processing:
 
 ```bash
-# Download test video (30 seconds)
-# Use one of the test videos already in the repository
-# Or download a sample video from your preferred source
+# Option 1: Use test videos already in the repository
+# test_video.mp4 and test_video_2.mp4 are included
+
+# Option 2: Download from YouTube using yt-dlp
+pip install yt-dlp
+yt-dlp -f "best[height<=720]" -o "test_video.mp4" "https://www.youtube.com/watch?v=VIDEO_ID"
+
+# Option 3: Use any local video file
+# Supported formats: MP4, AVI, MOV, MKV, WEBM
 
 # Run with fast profile
 python -m hendrix_pipeline --video test_video.mp4 --profile fast --output-dir test_output
@@ -352,8 +368,7 @@ python -m hendrix_pipeline --video input.mp4 \
 
 1. Check the [FAQ](FAQ.md)
 2. Search [existing issues](https://github.com/material-lab-io/HendrixVideo/issues)
-3. Join our [Discord community](https://discord.gg/hendrix)
-4. Create a new issue with:
+3. Create a new issue with:
    - System information
    - Error messages
    - Steps to reproduce

@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 import time
 
-from models.llava import LLaVAAnalyzer
-from schemas.shot import Shot
-from schemas.scene import Scene
-from utils.prompt_templates import SCENE_CONSTRUCTION_PROMPT, SHOT_DESCRIPTION_PROMPT
+from ..models.llava import LLaVAAnalyzer
+from ..schemas.shot import Shot
+from ..schemas.scene import Scene
+from ..utils.prompt_templates import SCENE_CONSTRUCTION_PROMPT, SHOT_DESCRIPTION_PROMPT
 
 logger = logging.getLogger(__name__)
 

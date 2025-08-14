@@ -2,9 +2,9 @@ import logging
 from typing import List, Dict, Any
 import time
 
-from models.cinematic_vlm import CinematicVLM
-from schemas.scene import Scene
-from schemas.shot import Shot
+from ..models.cinematic_vlm import CinematicVLM
+from ..schemas.scene import Scene
+from ..schemas.shot import Shot
 
 logger = logging.getLogger(__name__)
 
