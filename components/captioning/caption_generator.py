@@ -282,34 +282,6 @@ class OpenAIInterface(MLLMInterface):
             return False
 
 
-class MockMLLMInterface(MLLMInterface):
-    """
-    Mock MLLM for testing without API calls
-    """
-    
-    def generate_caption(self, prompt: str) -> str:
-        """Generate a mock caption"""
-        # Extract some context from the prompt
-        lines = prompt.split('\n')
-        scene_time = None
-        characters = None
-        
-        for line in lines:
-            if "Scene Timestamp:" in line:
-                scene_time = line.split(":")[-1].strip()
-            elif "Characters Present:" in line:
-                characters = line.split(":")[-1].strip()
-        
-        # Generate a simple mock caption
-        if characters and characters != "No identified characters":
-            return f"In this scene, {characters} engage in a meaningful interaction that advances the plot."
-        else:
-            return "The scene unfolds with visual elements that contribute to the narrative progression."
-    
-    def is_available(self) -> bool:
-        """Mock is always available"""
-        return True
-
 
 class CaptionGenerator:
     """
@@ -464,7 +436,7 @@ def create_mllm_interface(provider: str, api_key: str = None, model_name: str = 
     Factory function to create MLLM interfaces
     
     Args:
-        provider: Provider name (llava, openai, mock)
+        provider: Provider name (llava, openai)
         api_key: API key for the provider (not needed for llava)
         model_name: Model name (optional, uses defaults)
         config: Generation configuration
@@ -474,8 +446,7 @@ def create_mllm_interface(provider: str, api_key: str = None, model_name: str = 
     """
     providers = {
         "llava": (LLaVAInterface, "llava-hf/llava-v1.6-vicuna-7b-hf"),
-        "openai": (OpenAIInterface, "gpt-4"),
-        "mock": (MockMLLMInterface, "mock-model")
+        "openai": (OpenAIInterface, "gpt-4")
     }
     
     if provider not in providers:
@@ -483,7 +454,7 @@ def create_mllm_interface(provider: str, api_key: str = None, model_name: str = 
     
     interface_class, default_model = providers[provider]
     
-    if provider in ["mock", "llava"]:
+    if provider == "llava":
         return interface_class(api_key, model_name or default_model, config)
     
     return interface_class(api_key, model_name or default_model, config)
@@ -516,9 +487,13 @@ if __name__ == "__main__":
         prior_scene_summary="The story begins."
     )
     
-    # Test with mock interface
-    mock_interface = MockMLLMInterface("mock-key", "mock-model")
-    generator = CaptionGenerator(mock_interface)
-    
-    caption = generator.generate_scene_caption(sample_context)
-    print(f"Generated caption: {caption}")
+    # Test with LLaVA interface
+    try:
+        llava_interface = LLaVAInterface()
+        generator = CaptionGenerator(llava_interface)
+        
+        caption = generator.generate_scene_caption(sample_context)
+        print(f"Generated caption: {caption}")
+    except Exception as e:
+        print(f"Error initializing LLaVA: {e}")
+        print("Please ensure LLaVA model is available")

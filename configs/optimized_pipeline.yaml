@@ -1,0 +1,58 @@
+# Optimized Pipeline Configuration
+# Use this for fast processing with good quality
+
+pipeline:
+  batch_size: 64
+  use_gpu: true
+  device: "cuda:0"
+  log_level: "INFO"
+
+shot_detection:
+  model_name: "transnetv2"
+  # CRITICAL: These settings prevent over-segmentation
+  min_shot_duration: 3.0  # Minimum 3 seconds per shot (was 0.5)
+  confidence_threshold: 0.5  # Higher threshold = fewer shots (was 0.3)
+  max_shots: 500  # Safety limit to prevent runaway processing
+  
+  transnetv2:
+    batch_size: 128
+    device: "cuda"
+    threshold: 0.5  # TransNetV2 specific threshold
+    
+  # Fallback method if TransNetV2 fails
+  frame_difference:
+    threshold: 30.0
+    min_scene_len: 90  # 3 seconds at 30fps
+
+scene_construction:
+  model: "llava-hf/llava-1.5-7b-hf"  # 7B is 2x faster than 13B
+  batch_size: 10  # Process multiple shots at once
+  max_frames_per_batch: 20
+  
+  model_config:
+    load_in_8bit: false  # 7B doesn't need quantization
+    torch_dtype: "float16"
+    device_map: "auto"
+    low_cpu_mem_usage: true
+    
+  temperature: 0.3  # Lower = more consistent
+  max_new_tokens: 200  # Shorter = faster
+  progress_bar: true
+
+audio_processing:
+  whisper_model: "base"  # base is fast, medium is better quality
+  diarization:
+    min_speakers: 1
+    max_speakers: 10
+    
+output:
+  save_keyframes: true
+  keyframe_format: "jpg"
+  keyframe_quality: 85
+  save_intermediate: true
+  formats: ["json", "srt", "vtt", "html"]
+
+# Performance tips:
+# - For even faster: increase min_shot_duration to 5.0
+# - For better quality: use whisper_model: "medium" or "large"
+# - For limited GPU: set load_in_8bit: true

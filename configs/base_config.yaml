@@ -48,11 +48,6 @@ models:
     max_retries: 3
     timeout: 30
     
-  # Mock Model for Testing
-  mock:
-    provider: mock
-    model: mock-model
-    
 # Audio Models
 audio_models:
   whisper:
@@ -270,9 +265,16 @@ profiles:
     
   test:
     name: "Testing"
-    description: "For development and testing"
+    description: "For development and testing with minimal resources"
     overrides:
-      active_model: mock
+      active_model: llava_7b
+      generation:
+        max_tokens: 50
+        temperature: 0.3
+      components:
+        video_analysis:
+          scene_construction:
+            max_frames_per_batch: 5
       pipeline:
         retry_attempts: 1
         retry_delay: 0.1

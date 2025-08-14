@@ -34,11 +34,24 @@ logger = logging.getLogger(__name__)
 class VideoAnalysisPipeline:
     """Main orchestrator for the three-stage video analysis pipeline."""
     
-    def __init__(self, config_path: str = "config.yaml"):
+    def __init__(self, config_path: str = "config.yaml", output_dir: str = None):
+        # If config path is relative, look for it relative to this file
+        if not Path(config_path).is_absolute() and not Path(config_path).exists():
+            # Try to find config relative to the script location
+            script_dir = Path(__file__).parent.parent
+            possible_config = script_dir / config_path
+            if possible_config.exists():
+                config_path = str(possible_config)
+        
         self.config = self._load_config(config_path)
+        
+        # Override output directory if specified
+        if output_dir:
+            self._override_output_dir(output_dir)
+        
         self._setup_directories()
         
-        # Initialize pipeline stages
+        # Initialize pipeline stages AFTER config is updated
         self.shot_detector = ShotDetectionPipeline(self.config)
         self.scene_constructor = SceneConstructionPipeline(self.config)
         self.cinematic_analyzer = CinematicAnalysisPipeline(self.config)
@@ -53,6 +66,38 @@ class VideoAnalysisPipeline:
         except Exception as e:
             logger.error(f"Failed to load configuration: {e}")
             raise
+    
+    def _override_output_dir(self, output_dir: str):
+        """Override output directory in configuration."""
+        output_path = Path(output_dir).resolve()  # Use absolute path
+        output_path.mkdir(parents=True, exist_ok=True)
+        
+        # Ensure output section exists
+        if 'output' not in self.config:
+            self.config['output'] = {}
+        
+        # Update config output paths to use absolute paths
+        for key in ['shots_file', 'scenes_file', 'analysis_file', 'combined_output']:
+            if key in self.config['output']:
+                filename = Path(self.config['output'][key]).name
+            else:
+                # Default filenames if not in config
+                defaults = {
+                    'shots_file': 'shots.json',
+                    'scenes_file': 'scenes.json',
+                    'analysis_file': 'analysis.json',
+                    'combined_output': 'video_analysis_complete.json'
+                }
+                filename = defaults.get(key, f'{key}.json')
+            
+            new_path = str(output_path / filename)
+            self.config['output'][key] = new_path
+            logger.info(f"Set {key} to: {new_path}")
+        
+        # Also update the keyframes directory
+        if 'pipeline' not in self.config:
+            self.config['pipeline'] = {}
+        self.config['pipeline']['keyframes_directory'] = str(output_path / 'keyframes')
     
     def _setup_directories(self):
         """Create necessary directories."""
@@ -161,6 +206,9 @@ class VideoAnalysisPipeline:
         output_file = Path(self.config.get('output', {}).get('combined_output', 'video_analysis_complete.json'))
         
         try:
+            # Ensure parent directory exists
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            
             with open(output_file, 'w') as f:
                 json.dump(analysis_result.to_dict(), f, indent=2)
             logger.info(f"Saved complete analysis to: {output_file}")
@@ -214,18 +262,8 @@ def main():
         sys.exit(1)
     
     try:
-        # Initialize and run pipeline
-        pipeline = VideoAnalysisPipeline(args.config)
-        
-        # Override output directory if specified
-        if args.output_dir:
-            output_path = Path(args.output_dir)
-            output_path.mkdir(parents=True, exist_ok=True)
-            # Update config output paths
-            for key in ['shots_file', 'scenes_file', 'analysis_file', 'combined_output']:
-                if key in pipeline.config['output']:
-                    filename = Path(pipeline.config['output'][key]).name
-                    pipeline.config['output'][key] = str(output_path / filename)
+        # Initialize pipeline with output directory
+        pipeline = VideoAnalysisPipeline(args.config, output_dir=args.output_dir)
         
         # Run analysis
         result = pipeline.analyze_video(args.video_path, args.resume_from)

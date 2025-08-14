@@ -162,6 +162,9 @@ class SceneConstructionPipeline:
         output_file = Path(self.output_config.get('scenes_file', 'scenes.json'))
         
         try:
+            # Ensure parent directory exists
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            
             scenes_data = {
                 'total_scenes': len(scenes),
                 'scenes': [scene.to_dict() for scene in scenes]

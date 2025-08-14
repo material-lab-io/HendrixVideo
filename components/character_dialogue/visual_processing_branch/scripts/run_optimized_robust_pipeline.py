@@ -57,7 +57,17 @@ class OptimizedRobustPipeline:
         
         # Use existing audio pipeline code from parent class
         # For brevity, just run the script
-        audio_script = Path("../audio_processing_branch/scripts/complete_audio_pipeline.py").resolve()
+        # Find the audio script relative to this file's location
+        script_dir = Path(__file__).parent
+        # Try GPU-optimized version first, fall back to regular version
+        audio_script_gpu = (script_dir.parent.parent / "audio_processing_branch/scripts/complete_audio_pipeline_gpu.py").resolve()
+        audio_script = (script_dir.parent.parent / "audio_processing_branch/scripts/complete_audio_pipeline.py").resolve()
+        
+        # Use GPU version if it exists
+        if audio_script_gpu.exists():
+            audio_script = audio_script_gpu
+            logger.info("Using GPU-optimized audio pipeline")
+        
         abs_video_path = Path(video_path).resolve()
         audio_output_dir = self.session_dir / "audio_output"
         

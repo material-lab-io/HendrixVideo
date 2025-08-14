@@ -119,6 +119,9 @@ class ShotDetectionPipeline:
         output_file = Path(self.output_config.get('shots_file', 'shots.json'))
         
         try:
+            # Ensure parent directory exists
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            
             shots_data = {
                 'total_shots': len(shots),
                 'shots': [shot.to_dict() for shot in shots]

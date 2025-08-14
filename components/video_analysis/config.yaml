@@ -13,6 +13,11 @@ shot_detection:
   confidence_threshold: 0.5
   min_shot_duration: 0.5  # seconds
   detect_gradual_transitions: true
+  use_gpu: true
+  # TransNetV2 specific settings
+  transnetv2:
+    batch_size: 256  # Process frames in batches for efficiency
+    use_cache: true  # Cache predictions for repeated runs
   
 # Stage 2: Scene Construction
 scene_construction:

@@ -59,8 +59,18 @@ python -m hendrix_pipeline --verify
 # Install all dependencies
 pip install -r requirements/all.txt -r requirements/dev.txt
 
-# Run tests
-pytest tests/
+# Run all tests
+pytest
+
+# Run specific component tests
+pytest components/video_analysis/tests/
+pytest components/character_dialogue/visual_processing_branch/scripts/test_*.py
+
+# Run individual test
+pytest components/video_analysis/tests/test_pipeline.py::TestSchemas::test_shot_creation
+
+# Run tests with coverage
+pytest --cov=components.video_analysis components/video_analysis/tests/
 
 # Format code
 black components/ --line-length 120
@@ -114,15 +124,24 @@ config.set_active_model("llava_13b")
 3. Results → Captioning → SRT, VTT, HTML, JSON outputs
 
 ### Component Communication
-- Components communicate via JSON files
+- Components communicate via JSON files in `outputs/` directory
 - Each component can run independently
 - Results are aggregated in the captioning stage
+- Standard JSON schemas defined in each component's `schemas.py`
 
 ### GPU/Memory Management
 - Automatic GPU detection with CPU fallback
 - Configurable memory limits
 - Support for 8-bit and 4-bit quantization
 - Batch processing for efficiency
+- Device selection via `CUDA_VISIBLE_DEVICES` environment variable
+
+### Key Architectural Patterns
+- **ConfigManager**: Centralized configuration management (`components/config_manager.py`)
+- **Profile-based Configuration**: Different settings for different use cases
+- **Modular Components**: Each component has its own main.py entry point
+- **Error Handling**: Retry logic with exponential backoff for API calls
+- **Logging**: Structured logging with configurable levels and file output
 
 ## Important Files
 
@@ -185,6 +204,32 @@ python -m hendrix_pipeline --video input.mp4 --verbose
 
 # Check specific component
 python -m components.video_analysis.main --video input.mp4 --debug
+```
+
+### Run Individual Components
+```bash
+# Video analysis only
+python -m components.video_analysis.main --input_video video.mp4 --output_dir outputs/
+
+# Character dialogue processing
+python -m components.character_dialogue.visual_processing_branch.scripts.run_optimized_robust_pipeline \
+    --video video.mp4 --output outputs/
+
+# Caption generation with existing analysis
+python -m components.captioning.caption_generator \
+    --video video.mp4 --analysis outputs/analysis.json
+```
+
+### Environment Variables
+```bash
+# Select specific GPU
+export CUDA_VISIBLE_DEVICES=0
+
+# Disable GPU
+export CUDA_VISIBLE_DEVICES=-1
+
+# Hugging Face token for gated models
+export HF_TOKEN=your_token_here
 ```
 
 ## Troubleshooting

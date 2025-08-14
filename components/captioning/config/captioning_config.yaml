@@ -3,7 +3,7 @@
 
 # MLLM (Multi-modal Large Language Model) settings
 mllm:
-  # Provider: llava, openai, or mock
+  # Provider: llava or openai
   provider: llava
   
   # Model name (specific to provider)

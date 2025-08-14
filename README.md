@@ -1,16 +1,33 @@
 # Hendrix Video Analysis Pipeline
 
-A comprehensive AI-powered video analysis pipeline that combines computer vision, speech recognition, and natural language processing to generate detailed video captions and analysis.
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## 🎯 Features
+A comprehensive AI-powered video analysis pipeline that combines computer vision, speech recognition, and natural language processing to generate detailed video captions and analysis. Hendrix provides a modular, extensible framework for understanding video content at multiple levels - from shot detection to emotion analysis.
 
-- **Shot Detection & Scene Analysis**: Automatically detect shot boundaries and group them into coherent scenes
-- **Speech Recognition & Speaker Diarization**: Transcribe dialogue and identify different speakers
-- **Face Detection & Emotion Analysis**: Track characters and analyze their emotions
-- **AI-Powered Caption Generation**: Generate context-aware captions using state-of-the-art vision-language models
-- **Multiple Output Formats**: Export to SRT, WebVTT, JSON, and HTML timeline
-- **Modular Architecture**: Use individual components or the complete pipeline
-- **GPU Optimization**: Efficient processing with automatic GPU/CPU fallback
+## 📋 Table of Contents
+
+- [Key Features](#-key-features)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Configuration](#️-configuration)
+- [Advanced Usage](#-advanced-usage)
+- [Output Formats](#-output-formats)
+- [Model Information](#-model-information)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+## 🎯 Key Features
+
+- **🎬 Shot Detection & Scene Analysis**: Automatically detect shot boundaries and group them into coherent scenes using TransNetV2
+- **🎤 Speech Recognition & Speaker Diarization**: Transcribe dialogue with Whisper and identify different speakers using Pyannote
+- **😊 Face Detection & Emotion Analysis**: Track characters throughout the video and analyze their emotional states
+- **🤖 AI-Powered Caption Generation**: Generate context-aware captions using state-of-the-art vision-language models (LLaVA, GPT-4V)
+- **📄 Multiple Output Formats**: Export to SRT, WebVTT, JSON, and interactive HTML timeline
+- **🔧 Modular Architecture**: Use individual components or the complete pipeline
+- **⚡ GPU Optimization**: Efficient processing with automatic GPU/CPU fallback and quantization support
 
 ## 🚀 Quick Start
 
@@ -208,9 +225,17 @@ The pipeline generates multiple output formats in the `outputs/` directory:
 - Use the `fast` profile for quick previews
 - Clear cache periodically with `--clear-cache`
 
+## 📚 Documentation
+
+- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Detailed installation and setup instructions
+- **[Usage Guide](docs/USAGE_GUIDE.md)** - Comprehensive usage examples and API reference
+- **[Development Guide](docs/DEVELOPMENT_GUIDE.md)** - Architecture, development setup, and best practices
+- **[Model Swapping Guide](docs/MODEL_SWAPPING_GUIDE.md)** - How to use different AI models
+- **[API Reference](docs/API_REFERENCE.md)** - Detailed API documentation
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## 📄 License
 

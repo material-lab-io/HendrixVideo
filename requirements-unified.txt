@@ -1,0 +1,150 @@
+# Hendrix Unified Requirements - GPU Optimized
+# Python 3.8+ required (tested with 3.12)
+# CUDA 11.8 recommended for GPU acceleration
+
+# =============================================================================
+# Core ML Frameworks - GPU Optimized
+# =============================================================================
+# PyTorch with CUDA 11.8 support
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.2.2+cu118
+torchvision==0.17.2+cu118  
+torchaudio==2.2.2+cu118
+
+# =============================================================================
+# Transformers & Language Models
+# =============================================================================
+transformers==4.36.0  # Unified highest version for all components
+accelerate==0.25.0    # GPU memory optimization
+sentencepiece>=0.1.99
+protobuf>=4.23.0
+tokenizers>=0.15.0
+
+# =============================================================================
+# Computer Vision - GPU Accelerated
+# =============================================================================
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+pillow>=10.0.0
+
+# Shot Detection (GPU)
+transnetv2-pytorch>=1.0.1
+
+# Face Detection & Recognition (GPU)
+ultralytics>=8.0.0
+insightface>=0.7.3
+onnxruntime-gpu>=1.16.0  # GPU version for face detection
+deepface>=0.0.79
+
+# Scene Detection
+scenedetect>=0.6.0
+av>=10.0.0
+
+# =============================================================================
+# Audio Processing - GPU Where Available
+# =============================================================================
+# Speech Recognition
+openai-whisper>=20230314  # GPU accelerated transcription
+pyannote.audio>=3.0.0     # GPU speaker diarization
+
+# Audio Libraries
+librosa>=0.10.0
+soundfile>=0.12.0
+pydub>=0.25.0
+speechbrain>=0.5.0
+
+# =============================================================================
+# Video Processing
+# =============================================================================
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0  # Required for TransNetV2 - NOT 'ffmpeg' package!
+# IMPORTANT: Do NOT install 'ffmpeg==1.4' - it conflicts with ffmpeg-python
+decord>=0.6.0  # GPU video decoding
+vidgear>=0.3.0
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+
+# =============================================================================
+# Data Science & ML
+# =============================================================================
+numpy==1.26.4  # Fixed for compatibility
+pandas>=2.0.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# ML Utilities
+datasets>=2.14.0
+h5py>=3.9.0
+
+# =============================================================================
+# GPU-Accelerated Clustering & Analysis
+# =============================================================================
+faiss-gpu>=1.7.2  # GPU clustering
+hdbscan>=0.8.33
+umap-learn>=0.5.4
+mxnet>=1.9.1  # Required by InsightFace
+
+# =============================================================================
+# Image Processing
+# =============================================================================
+albumentations>=1.3.0
+timm>=0.9.0  # PyTorch image models
+
+# OCR
+easyocr>=1.7.0
+
+# =============================================================================
+# Utilities
+# =============================================================================
+pyyaml>=6.0
+requests>=2.31.0
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+click>=8.1.0
+python-dateutil>=2.8.2
+jsonschema>=4.19.0
+simplejson>=3.19.0
+fire>=0.4.0
+
+# Logging & Monitoring
+coloredlogs>=15.0
+psutil>=5.9.0
+
+# Async Support
+aiohttp>=3.8.0
+aiofiles>=23.1.0
+
+# Visualization
+plotly>=5.16.0
+
+# =============================================================================
+# Development & Testing
+# =============================================================================
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
+isort>=5.12.0
+pylint>=3.0.0
+pre-commit>=3.4.0
+ipython>=8.14.0
+jupyter>=1.0.0
+notebook>=7.0.0
+ipdb>=0.13.0
+coverage>=7.3.0
+
+# =============================================================================
+# Optional API Support (uncomment if needed)
+# =============================================================================
+# openai>=1.0.0  # For OpenAI GPT-4V
+# google-generativeai>=0.3.0  # For Google Gemini
+
+# =============================================================================
+# Legacy Support (remove if not needed)
+# =============================================================================
+# tensorflow>=2.13.0  # Only if using TF models
+# keras>=2.13.0       # Only if using Keras models

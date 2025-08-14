@@ -1,0 +1,116 @@
+# Pre-commit hooks for Hendrix Video Analysis Pipeline
+# Install: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # General formatting and linting
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: requirements-txt-fixer
+        files: ^requirements/.*\.txt$
+
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: ['--line-length=120']
+        exclude: ^archive/
+
+  # Python import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ['--profile=black', '--line-length=120']
+        exclude: ^archive/
+
+  # Python linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=120', '--extend-ignore=E203,W503']
+        exclude: ^archive/
+        additional_dependencies:
+          - flake8-docstrings
+          - flake8-bugbear
+          - flake8-comprehensions
+
+  # Security checks
+  - repo: https://github.com/pycqa/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ['-ll', '-r', 'components/', 'scripts/']
+        exclude: ^(tests/|archive/)
+
+  # YAML formatting
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.10.0
+    hooks:
+      - id: pretty-format-yaml
+        args: ['--autofix', '--indent=2']
+        exclude: ^archive/
+
+  # Markdown formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-tables
+        exclude: ^archive/
+
+  # Shell script checks
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.5
+    hooks:
+      - id: shellcheck
+        exclude: ^archive/
+
+  # Dockerfile linting
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint-docker
+        entry: hadolint/hadolint:v2.12.0 hadolint
+        
+# Configuration for specific tools
+files: |
+  (?x)^(
+    components/.*\.py|
+    scripts/.*\.(py|sh)|
+    tests/.*\.py|
+    .*\.(yaml|yml|json|md)|
+    Dockerfile.*
+  )$
+
+exclude: |
+  (?x)^(
+    archive/|
+    \.git/|
+    \.venv/|
+    venv/|
+    hendrix_venv/|
+    __pycache__/|
+    \.pytest_cache/|
+    models/|
+    outputs/|
+    cache/|
+    .*\.egg-info/
+  )

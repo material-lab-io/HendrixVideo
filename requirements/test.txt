@@ -1,0 +1,29 @@
+# Testing requirements for Hendrix Video Analysis Pipeline
+
+# Testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-xdist>=3.3.1  # Parallel test execution
+pytest-timeout>=2.1.0
+pytest-mock>=3.11.1
+
+# Code quality
+black>=23.7.0
+flake8>=6.1.0
+isort>=5.12.0
+mypy>=1.5.0
+
+# Pre-commit hooks
+pre-commit>=3.3.3
+
+# Testing utilities
+faker>=19.3.0  # Generate test data
+hypothesis>=6.82.0  # Property-based testing
+responses>=0.23.3  # Mock HTTP responses
+
+# Performance testing
+memory_profiler>=0.61.0
+py-spy>=0.3.14  # Sampling profiler
+
+# Documentation testing
+doctest-plus>=1.0.0

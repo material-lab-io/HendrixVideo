@@ -1,7 +1,7 @@
-# Test configuration with mock MLLM
+# Test configuration with LLaVA MLLM
 mllm:
-  provider: mock
-  model: mock-model
+  provider: llava
+  model: llava-hf/llava-v1.6-vicuna-7b-hf
   
 fusion:
   include_emotions: true
