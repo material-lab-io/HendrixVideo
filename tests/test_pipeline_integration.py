@@ -6,8 +6,8 @@ from pathlib import Path
 import json
 from unittest.mock import Mock, patch
 
-from components.pipeline import Pipeline
-from components.config_manager import ConfigManager
+from hendrix.core.pipeline import Pipeline
+from hendrix.core.config import ConfigManager
 
 
 class TestPipelineIntegration:

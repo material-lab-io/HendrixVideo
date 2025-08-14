@@ -27,8 +27,9 @@ if [ -z "$HF_TOKEN" ]; then
     fi
 fi
 
-# Base directory
-BASE_DIR="/dev-work/hendrix_12aug"
+# Base directory - auto-detect current directory
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+echo "Using base directory: $BASE_DIR"
 cd $BASE_DIR
 
 # Function to check if command exists
