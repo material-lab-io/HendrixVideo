@@ -1,0 +1,28 @@
+# CODEOWNERS file for Hendrix Video Analysis Pipeline
+# These owners will be the default owners for everything in the repo
+
+# Global owners
+* @yourusername
+
+# Component-specific owners
+/components/video_analysis/ @yourusername
+/components/character_dialogue/ @yourusername
+/components/captioning/ @yourusername
+
+# Configuration files
+/configs/ @yourusername
+*.yaml @yourusername
+*.yml @yourusername
+
+# Documentation
+/docs/ @yourusername
+*.md @yourusername
+
+# CI/CD
+/.github/ @yourusername
+
+# Dependencies
+/requirements/ @yourusername
+requirements*.txt @yourusername
+setup.py @yourusername
+pyproject.toml @yourusername

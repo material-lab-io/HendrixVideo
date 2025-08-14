@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discord
+    url: https://discord.gg/hendrix
+    about: Please ask and answer questions here
+  - name: Documentation
+    url: https://github.com/yourusername/hendrix_12aug/tree/main/docs
+    about: Check our documentation for usage guides
+  - name: Discussions
+    url: https://github.com/yourusername/hendrix_12aug/discussions
+    about: For general discussions and ideas

@@ -1,0 +1,39 @@
+# Include documentation
+include README.md
+include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+
+# Include configuration files
+recursive-include configs *.yaml *.yml
+
+# Include requirements
+recursive-include requirements *.txt
+
+# Include package data
+recursive-include components *.yaml *.yml *.json
+
+# Include tests
+recursive-include tests *.py
+include pytest.ini
+
+# Include GitHub templates
+recursive-include .github *.md *.yml *.yaml
+
+# Include scripts
+recursive-include scripts *.py *.sh
+
+# Exclude unnecessary files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude *.dylib
+recursive-exclude archive *
+recursive-exclude outputs *
+recursive-exclude models *
+recursive-exclude cache *
+recursive-exclude keyframes *
+exclude .git*
+exclude .pre-commit-config.yaml
+exclude .editorconfig
