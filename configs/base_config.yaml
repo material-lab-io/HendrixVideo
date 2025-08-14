@@ -53,7 +53,7 @@ audio_models:
   whisper:
     model: base  # Options: tiny, base, small, medium, large
     device: cuda
-    language: auto  # Auto-detect or specify: en, es, fr, etc.
+    language: null  # Auto-detect or specify: en, es, fr, etc.
     
   diarization:
     model: pyannote/speaker-diarization-3.1
@@ -101,8 +101,18 @@ components:
       keyframe_selection: middle  # Options: middle, first, last, all
       
     scene_construction:
-      merge_threshold: 10.0  # Seconds
+      enabled: true
+      # Processing modes
+      individual_mode: false  # Process each shot individually vs batch processing
       max_frames_per_batch: 10
+      shots_per_scene: 2  # For basic mode without LLaVA
+      
+      # LLaVA integration
+      use_llava: true  # Use LLaVA for intelligent scene grouping
+      llava_model: llava_7b  # Model to use for scene analysis
+      
+      # Legacy compatibility
+      merge_threshold: 10.0  # Seconds
       use_visual_similarity: true
       
   character_dialogue:
@@ -122,22 +132,23 @@ components:
         save_faces: false
       emotion_detection:
         enabled: true
-        
-    fusion:
-      match_speakers_to_faces: true
-      confidence_threshold: 0.6
-      
+
   captioning:
+    comprehensive:
+      enabled: true  # Enable comprehensive captioning with data fusion
     fusion:
       include_emotions: true
       include_visual_descriptions: true
       include_speaker_labels: true
       min_dialogue_confidence: 0.5
-      
+      match_speakers_to_faces: true
+      confidence_threshold: 0.6
     prompt:
-      template: narrative_with_emotions
+      template: narrative_with_emotions  # Options: narrative, narrative_with_emotions, descriptive, summary, accessible, character_focused
       use_improved_templates: true
-      system_prompt: "You are a helpful assistant that creates accurate video captions."
+    output:
+      formats: ["json", "srt", "webvtt", "txt"]
+      include_metadata: true
       
     context:
       maintain_story_context: true
