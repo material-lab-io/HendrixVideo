@@ -7,14 +7,14 @@
 # =============================================================================
 # PyTorch with CUDA 11.8 support
 --extra-index-url https://download.pytorch.org/whl/cu118
-torch==2.2.2+cu118
-torchvision==0.17.2+cu118  
-torchaudio==2.2.2+cu118
+torch==2.8.0
+torchvision==0.23.0  
+torchaudio==2.8.0
 
 # =============================================================================
 # Transformers & Language Models
 # =============================================================================
-transformers==4.36.0  # Unified highest version for all components
+transformers==4.55.2  # Unified highest version for all components
 accelerate==0.25.0    # GPU memory optimization
 sentencepiece>=0.1.99
 protobuf>=4.23.0
