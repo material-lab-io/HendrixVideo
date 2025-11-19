@@ -15,7 +15,7 @@ audioread>=3.0.0
 
 # Speaker Diarization
 pyannote.audio>=3.1.0
-speechbrain>=0.5.16,<1.0.0  # Avoid potential Python 3.12 issues with newer versions
+speechbrain>=0.5.16,<2.0.0  # Avoid potential Python 3.12 issues with newer versions
 # Note: pyannote requires authentication token from HuggingFace
 
 # Audio Analysis
